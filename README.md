@@ -11,15 +11,15 @@ FinanceMe is a Global leading Banking and Financial services provider based out 
  want to accelerate software delivery speed, quality and reducing feedback time between developers and testers. Currently, they are
  facing following problems, because of various technologies involved in the project.
 
-  you need to implement Continuous Integration & Continuous Deployment using following tools:
- ✓Git- For version control for tracking changes in the code files
- ✓Maven–For Continuous Build
- ✓Jenkins- For continuous integration and continuous deployment
- ✓Docker- For deploying containerized applications
- ✓Ansible- Configuration management tools
- ✓Selenium- For automating tests on the deployed web application
- ✓Terraform- For creation of infrastructure.
- ✓Prometheus and Grafana– For Automated Monitoring and Report Visualization
+  ***you need to implement Continuous Integration & Continuous Deployment using following tools:*** <br>
+**✓Git- For version control for tracking changes in the code files** <br>
+ **✓Maven–For Continuous Build** <br>
+ **✓Jenkins- For continuous integration and continuous deployment** <br>
+ **✓Docker- For deploying containerized applications**
+ **✓Ansible- Configuration management tools** <br>
+ **✓Selenium- For automating tests on the deployed web application** <br>
+ **✓Terraform- For creation of infrastructure.** <br>
+ **✓Prometheus and Grafana– For Automated Monitoring and Report Visualization** <br>
  This project will be about how to test the services and deploy code to dev/stage/prod etc, just on a click of button.
 
 
