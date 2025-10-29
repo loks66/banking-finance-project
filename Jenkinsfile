@@ -7,7 +7,7 @@ pipeline {
     stages{
         stage('build project'){
             steps{
-                git 'https://github.com/lax66/star-agile-banking-finance_CAP01.git'
+                git 'https://github.com/loks66/banking-finance-project.git'
                 sh 'mvn clean package'
               
             }
