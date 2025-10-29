@@ -59,7 +59,6 @@ resource "aws_instance" "server" {
   tags = {
     Name = "${terraform.workspace}_server"
   }
-}
   provisioner "remote-exec" {
     inline = [
       "cat /etc/os-release",
