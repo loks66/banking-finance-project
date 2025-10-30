@@ -1,14 +1,9 @@
 pipeline {
     agent any
-    environment {
-      AWS_ACCESS_KEY_ID = 'your-aws-access-key-id'
-      AWS_SECRET_ACCESS_KEY = 'your-aws-secret-access-key'
-    }
-
     stages{
         stage('build project'){
             steps{
-                git 'https://github.com/loks66/banking-finance-project.git'
+                git branch: 'main', url: 'https://github.com/loks66/banking-finance-project.git'
                 sh 'mvn clean package'
               
             }
@@ -32,17 +27,21 @@ pipeline {
         
         stage('Terraform Operations for test workspace') {
             steps {
+                withCredentials([string(credentialsId: 'aws_access_key_id', variable: 'AWS_ACCESS_KEY_ID'), string(credentialsId: 'aws_secret_access_key', variable: 'AWS_SECRET_ACCESS_KEY')]) {
                 sh '''
                 terraform workspace select test || terraform workspace new test
-                terraform init
-                terraform plan
-                terraform destroy -auto-approve
+                terraform init -no-color
+                terraform plan -no-color
+                terraform destroy -auto-approve -no-color
                 '''
+                }
             }
         }
        stage('Terraform destroy & apply for test workspace') {
             steps {
-                sh 'terraform apply -auto-approve'
+                withCredentials([string(credentialsId: 'aws_access_key_id', variable: 'AWS_ACCESS_KEY_ID'), string(credentialsId: 'aws_secret_access_key', variable: 'AWS_SECRET_ACCESS_KEY')]) {
+                sh 'terraform apply -auto-approve -no-color'
+                }
             }
        }
        stage('Terraform Operations for Production workspace') {
@@ -50,6 +49,7 @@ pipeline {
                 expression { return currentBuild.currentResult == 'SUCCESS' }
             }
             steps {
+                withCredentials([string(credentialsId: 'aws_access_key_id', variable: 'AWS_ACCESS_KEY_ID'), string(credentialsId: 'aws_secret_access_key', variable: 'AWS_SECRET_ACCESS_KEY')]) {
                 sh '''
                 terraform workspace select prod || terraform workspace new prod
                 terraform init
@@ -58,9 +58,10 @@ pipeline {
                 else
                     terraform import aws_key_pair.example key02 || echo "Key pair already imported"
                 fi
-                terraform destroy -auto-approve
-                terraform apply -auto-approve
+                terraform destroy -auto-approve -no-color
+                terraform apply -auto-approve -no-color
                 '''
+                }
             }
        }
     }
